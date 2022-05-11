@@ -10,9 +10,13 @@ const port = 3000;
 
 app.use(express.json());
 
-const usersRoute = require('./modules/user/user.route');
+const usersRoute = require('./modules/users/users.route');
 
 app.use("/users" , usersRoute)
+
+app.get('*', (req, res) => {
+    res.json({ error: "404"})
+});
 
 app.listen(port, () => {
     console.log(`Application up and running on: http://localhost:${port}`)
