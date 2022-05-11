@@ -1,9 +1,9 @@
 const GenericCrudService = require("../generic-crud.service");
 
-class UserService extends GenericCrudService {
+class UsersService extends GenericCrudService {
     constructor() {
         super("users")
     }
 }
 
-module.exports = UserService;
+module.exports = UsersService;
