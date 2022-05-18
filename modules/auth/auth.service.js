@@ -7,11 +7,10 @@ class AuthService extends UsersService {
     }
 
     async authenticate(email, password) {
-        const encryptedPassword = this.encryptPassword(password);
+        const bcrypt = require('bcrypt');
         const user = await this.findByEmail(email);
-        if (user && user.password === encryptedPassword) {
+        if (user && bcrypt.compareSync(password, user.password)) {
             const jwt = require('jsonwebtoken');
-
             return jwt.sign({id: user.id, email: user.email}, process.env.JWT_KEY);
         } else {
             return null;
