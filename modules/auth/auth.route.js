@@ -12,7 +12,12 @@ router.post('/', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
-    res.json(await authService.authenticate(req.body.username, req.body.password));
+    const token = await authService.authenticate(req.body.username, req.body.password);
+    if (token) {
+        res.json(token);
+    } else {
+        res.status(401).json({ error: "Invalid credentials" });
+    }
 });
 
 

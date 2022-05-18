@@ -7,18 +7,19 @@ class AuthService extends UsersService {
     }
 
     async authenticate(email, password) {
-        const [results] = await global.connection.promise().query("SELECT * FROM users WHERE email = ? ", [email]);
+        const encryptedPassword = this.encryptPassword(password);
+        const user = await this.findByEmail(email);
+        if (user && user.password === encryptedPassword) {
+            const jwt = require('jsonwebtoken');
+
+            return jwt.sign({id: user.id, email: user.email}, process.env.JWT_KEY);
+        } else {
+            return null;
+        }
     }
 
     async register(user) {
-
-        const bcrypt = require('bcrypt');
-        const saltRounds = 10;
-        const myPlaintextPassword = user.password;
-
-        const salt = bcrypt.genSaltSync(saltRounds);
-        user.password = bcrypt.hashSync(myPlaintextPassword, salt);
-
+        user.password = this.encryptPassword(user.password);
         const result = await this.save(user);
 
         delete result.password;
@@ -27,6 +28,14 @@ class AuthService extends UsersService {
 
     }
 
+    encryptPassword(password) {
+        const bcrypt = require('bcrypt');
+        const saltRounds = 10;
+        const myPlaintextPassword = password;
+
+        const salt = bcrypt.genSaltSync(saltRounds);
+        return bcrypt.hashSync(myPlaintextPassword, salt);
+    }
 }
 
 module.exports = AuthService;
