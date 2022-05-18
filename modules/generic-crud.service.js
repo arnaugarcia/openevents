@@ -9,15 +9,16 @@ class GenericCrudService {
         return results;
     }
 
-    find(id) {
-        // SELECT * FROM ?? WHERE id = 'params.id'
-        return {};
+    async find(id) {
+        const results = await global.connection.promise().query("SELECT * FROM ?? WHERE id = ?", [this.entity, id]);
+        return results[0][0];
     }
 
     async save(object) {
         const fields = Object.keys(object);
         const values = Object.values(object);
-        return  await global.connection.promise().query("INSERT INTO ?? (??) VALUES (?);", [this.entity, fields, values]);
+        const [results] = await global.connection.promise().query("INSERT INTO ?? (??) VALUES (?);", [this.entity, fields, values]);
+        return this.find(results.insertId);
     }
 
     update(id, data) {
