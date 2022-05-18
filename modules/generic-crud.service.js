@@ -14,9 +14,10 @@ class GenericCrudService {
         return {};
     }
 
-    save(user) {
-        // INSERT INTO ?? (??) values (??)
-        return {}
+    async save(object) {
+        const fields = Object.keys(object);
+        const values = Object.values(object);
+        return  await global.connection.promise().query("INSERT INTO ?? (??) VALUES (?);", [this.entity, fields, values]);
     }
 
     update(id, data) {
