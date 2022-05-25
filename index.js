@@ -1,8 +1,11 @@
 require("dotenv").config();
 
-const express = require('express')
+const Joi = require('joi');
+global.joi = Joi;
 
-const mysql = require("mysql2")
+const express = require('express');
+
+const mysql = require("mysql2");
 global.connection = mysql.createConnection(process.env.DATABASE_URL);
 
 const app = express();
@@ -13,11 +16,11 @@ app.use(express.json());
 const usersRoute = require('./modules/users/users.route');
 const authRoute = require('./modules/auth/auth.route');
 
-app.use("/users" , usersRoute);
-app.use("/users" , authRoute);
+app.use("/users", usersRoute);
+app.use("/users", authRoute);
 
 app.get('*', (req, res) => {
-    res.json({ error: "404"})
+    res.json({error: "404"})
 });
 
 app.listen(port, () => {
