@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
     res.json(await userService.findAll());
 })
 
-router.get('/search', async (req, res, next) => {
+router.get('/search',async (req, res, next) => {
     console.log(req.query);
     res.json(await userService.findByKeyword(req.query.s));
 })
