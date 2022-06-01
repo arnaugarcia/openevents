@@ -15,10 +15,12 @@ app.use(express.json());
 
 const usersRoute = require('./modules/users/users.route');
 const authRoute = require('./modules/auth/auth.route');
+const eventsRoute = require('./modules/events/events.route');
 const {privateRoute} = require("./middlewares/privateRoute");
 
 app.use("/users", authRoute);
 app.use("/users", [privateRoute, usersRoute]);
+app.use("/events", [privateRoute, eventsRoute]);
 
 app.get('*', (req, res) => {
     res.json({error: "404"})
