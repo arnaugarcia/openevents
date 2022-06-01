@@ -39,6 +39,11 @@ class EventsService extends GenericCrudService {
         const results = await global.connection.promise().query("SELECT * FROM events WHERE owner_id = ?", [id]);
         return results[0];
     }
+
+    async findFutureEventsForUser(id) {
+        const results = await global.connection.promise().query("SELECT * FROM events WHERE owner_id = ? AND date > NOW()", [id]);
+        return results[0];
+    }
 }
 
 
