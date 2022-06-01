@@ -11,8 +11,12 @@ class UsersService extends GenericCrudService {
     }
 
     async update(id, data) {
-        console.log(data);
         const results = await global.connection.promise().query(`UPDATE users t SET t.name = '${data.name}', t.last_name = '${data.last_name}', t.email = '${data.email}', t.image = '${data.image}' WHERE t.id = ${id}`, [data]);
+        return results[0][0];
+    }
+
+    async findByKeyword(keyword) {
+        const results = await global.connection.promise().query("SELECT * FROM users WHERE name LIKE '%" + keyword + "%' OR last_name LIKE '%" + keyword + "%' OR email LIKE '%" + keyword + "%'");
         return results[0][0];
     }
 }

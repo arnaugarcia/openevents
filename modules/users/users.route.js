@@ -8,6 +8,11 @@ router.get('/', async (req, res, next) => {
     res.json(await userService.findAll());
 })
 
+router.get('/search', async (req, res, next) => {
+    console.log(req.query);
+    res.json(await userService.findByKeyword(req.query.s));
+})
+
 router.get('/:id', async (req, res, next) => {
     res.json(await userService.find(req.params.id));
 })
