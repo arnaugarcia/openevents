@@ -6,6 +6,9 @@ const HttpStatus = require('http-status-codes');
 const UserService = require('./users.service');
 const userService = new UserService();
 
+const EventsService = require('../events/events.service');
+const eventsService = new EventsService();
+
 router.get('/', async (req, res, next) => {
     res.json(await userService.findAll());
 })
@@ -21,6 +24,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     res.json(await userService.update(req.params.id, req.body));
+})
+
+router.get('/:id/events', async (req, res, next) => {
+    res.json(await eventsService.findForUser(req.params.id));
 })
 
 router.delete('/', async (req, res, next) => {
