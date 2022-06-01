@@ -6,6 +6,9 @@ const HttpStatus = require('http-status-codes');
 const EventsService = require('./events.service');
 const eventsService = new EventsService();
 
+const AssistanceService = require('../assistance/assistance.service');
+const assistanceService = new AssistanceService();
+
 router.get('/', async (req, res, next) => {
     res.json(await eventsService.findAll());
 })
@@ -24,6 +27,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     res.json(await eventsService.update(req.params.id, req.body));
+})
+
+router.post('/:id/assistances', async (req, res, next) => {
+    res.status(HttpStatus.CREATED).json(await assistanceService.saveAssistanceForUser(req.params.id, req.USER_ID));
 })
 
 router.delete('/:id', async (req, res, next) => {
