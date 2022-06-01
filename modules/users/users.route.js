@@ -23,8 +23,9 @@ router.put('/:id', async (req, res, next) => {
     res.json(await userService.update(req.params.id, req.body));
 })
 
-router.delete('/:id', async (req, res, next) => {
-    res.json(await userService.remove(req.params.id)).status(HttpStatus.NO_CONTENT);
+router.delete('/', async (req, res, next) => {
+    await userService.remove(req.USER_ID);
+    res.json().status(HttpStatus.NO_CONTENT);
 })
 
 module.exports = router;
