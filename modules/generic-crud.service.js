@@ -22,13 +22,11 @@ class GenericCrudService {
     }
 
     update(id, data) {
-        // UPDATE ?? SET ?? = ? WHERE id = ?
-        return {}
+        throw Error("Not implemented yet");
     }
 
-    remove(id) {
-        // DELETE FROM ?? WHERE id = ?
-        return {}
+    async remove(id) {
+        return await global.connection.promise().query("DELETE FROM ?? WHERE id = ?", [this.entity, id]);
     }
 
 }

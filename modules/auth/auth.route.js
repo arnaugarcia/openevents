@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const HttpStatus = require('http-status-codes');
+
 const AuthService = require('./auth.service');
 const UsersService = require("../users/users.service");
 
@@ -19,14 +21,14 @@ router.post('/login', async (req, res, next) => {
 
     const validate = schema.validate(req.body);
     if (validate.error) {
-        res.status(400).json(validate.error.details);
+        res.status(HttpStatus.BAD_REQUEST).json(validate.error.details);
         return;
     }
     const token = await authService.authenticate(req.body.email, req.body.password);
     if (token) {
         res.json({access_token: token});
     } else {
-        res.status(401).json({error: "Invalid credentials"});
+        res.status(HttpStatus.UNAUTHORIZED).json({error: "Invalid credentials"});
     }
 });
 
