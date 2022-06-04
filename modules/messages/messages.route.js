@@ -10,4 +10,8 @@ router.get('/:id', async (req, res, next) => {
     res.json(await messagesService.find(req.params.id));
 })
 
+router.post('/', async (req, res, next) => {
+    res.json(await messagesService.saveMessageForUser(req.USER_ID, req.body));
+})
+
 module.exports = router;
