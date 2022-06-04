@@ -22,5 +22,4 @@ router.delete('/:userId/:eventId', async (req, res, next) => {
     res.status(HttpStatus.NO_CONTENT).json(await assistanceService.removeAssistanceForUserAndEvent(req.params.eventId, req.params.userId));
 })
 
-
 module.exports = router;
