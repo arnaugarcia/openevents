@@ -9,8 +9,8 @@ const userService = new UserService();
 const EventsService = require('../events/events.service');
 const eventsService = new EventsService();
 
-const AssistancesService = require('../assistance/assistance.service');
-const assistanceService = new AssistancesService();
+const FriendsService = require('../friends/friends.service');
+const friendsService = new FriendsService();
 
 router.get('/', async (req, res, next) => {
     res.json(await userService.findAll());
@@ -57,9 +57,12 @@ router.get('/:id/assistances/finished', async (req, res, next) => {
     res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.USER_ID));
 })
 
-router.delete('/', async (req, res, next) => {
-    await userService.remove(req.USER_ID);
-    res.json().status(HttpStatus.NO_CONTENT);
+router.get('/:id/assistances/finished', async (req, res, next) => {
+    res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.USER_ID));
+})
+
+router.get('/:id/friends', async (req, res, next) => {
+    res.json(await friendsService.findFriendsForUser(req.USER_ID));
 })
 
 module.exports = router;
