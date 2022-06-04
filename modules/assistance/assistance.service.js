@@ -43,6 +43,11 @@ class AssistanceService extends GenericCrudService {
     }
 
     async saveAssistanceForUserAndEvent(userId, eventId, assistance) {
+        // check if assistance exists and update it if it does and create it if it doesn't
+        const assistanceExists = await this.findAssistancesForEventAndUser(eventId, userId);
+        if (assistanceExists) {
+            return this.updateAsistanceForUser(eventId, userId, assistance);
+        }
         assistance.user_id = userId;
         assistance.event_id = eventId;
         return this.save(assistance);
