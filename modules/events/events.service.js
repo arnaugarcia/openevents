@@ -54,6 +54,16 @@ class EventsService extends GenericCrudService {
         const results = await global.connection.promise().query("SELECT * FROM events WHERE owner_id = ? AND date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 1 MONTH)", [id]);
         return results[0];
     }
+
+    async findEventsWithAssistanceOfUser(userId) {
+        const [results] = await global.connection.promise().query("SELECT * FROM events e inner join assistance a on e.id = a.event_id WHERE a.user_id = ?", [userId]);
+        return results.map(result => {
+                delete result.user_id;
+                delete result.event_id;
+                return result;
+            }
+        );
+    }
 }
 
 
