@@ -9,6 +9,11 @@ class MessagesService extends GenericCrudService {
         message.timestamp = new Date();
         return this.save(message);
     }
+
+    async findMessagesForUser(userId) {
+        const results = await global.connection.promise().query("SELECT * FROM message WHERE user_id_recived = ?", userId);
+        return results[0];
+    }
 }
 
 
