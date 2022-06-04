@@ -30,7 +30,12 @@ router.put('/:id', async (req, res, next) => {
 })
 
 router.post('/:id/assistances', async (req, res, next) => {
-    res.status(HttpStatus.CREATED).json(await assistanceService.saveAssistanceForUser(req.params.id, req.USER_ID));
+    const result = await assistanceService.saveAssistanceForUser(req.params.id, req.USER_ID);
+    if (result) {
+        res.status(HttpStatus.CREATED).json(result);
+    } else {
+        res.status(HttpStatus.NOT_FOUND).json();
+    }
 })
 
 router.get('/:id/assistances', async (req, res, next) => {

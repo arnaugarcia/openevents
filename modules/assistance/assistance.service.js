@@ -6,8 +6,13 @@ class AssistanceService extends GenericCrudService {
     }
 
     async saveAssistanceForUser(eventId, userId) {
-        const [results] = await global.connection.promise().query("INSERT INTO assistance (event_id, user_id) VALUES (?, ?)", [eventId, userId]);
-        return results[0];
+        // check that assistance exists by id
+        const assistance = await this.find(userId);
+        if (assistance) {
+            const [results] = await global.connection.promise().query("INSERT INTO assistance (event_id, user_id) VALUES (?, ?)", [eventId, userId]);
+            return results[0];
+        }
+        return null;
     }
 
     async find(id) {
