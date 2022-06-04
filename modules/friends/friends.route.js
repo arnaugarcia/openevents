@@ -15,7 +15,7 @@ router.get('/requests', async (req, res, next) => {
 })
 
 router.post('/:id', async (req, res, next) => {
-    res.json(await friendsService.saveFriendRequestForUserAndFriend(req.USER_ID, req.params.id));
+    res.status(HttpStatus.CREATED).json(await friendsService.saveFriendRequestForUserAndFriend(req.USER_ID, req.params.id));
 })
 
 router.put('/:id', async (req, res, next) => {
@@ -23,7 +23,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 router.delete('/:id', async (req, res, next) => {
-    res.json(await friendsService.rejectFriendRequestForUserAndFriend(req.USER_ID, req.params.id));
+    res.status(HttpStatus.NO_CONTENT).json(await friendsService.rejectFriendRequestForUserAndFriend(req.USER_ID, req.params.id));
 })
 
 module.exports = router;
