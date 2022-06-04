@@ -53,6 +53,10 @@ router.get('/:id/assistances/future', async (req, res, next) => {
     res.json(await eventsService.findFutureEventsWithAssistanceOfUser(req.USER_ID));
 })
 
+router.get('/:id/assistances/finished', async (req, res, next) => {
+    res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.USER_ID));
+})
+
 router.delete('/', async (req, res, next) => {
     await userService.remove(req.USER_ID);
     res.json().status(HttpStatus.NO_CONTENT);
