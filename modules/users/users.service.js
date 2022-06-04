@@ -19,6 +19,11 @@ class UsersService extends GenericCrudService {
         const results = await global.connection.promise().query("SELECT * FROM users WHERE name LIKE '%" + keyword + "%' OR last_name LIKE '%" + keyword + "%' OR email LIKE '%" + keyword + "%'");
         return results[0][0];
     }
+
+    async findStatistics(userId) {
+        const [results] = await global.connection.promise().query("SELECT AVG(puntuation) AS average_score, COUNT(comentary) AS number_of_comments, (SELECT COUNT(*) FROM assistance WHERE puntuation < (SELECT AVG(puntuation) FROM assistance WHERE user_id = ?)) AS percentage_commenters_below FROM assistance WHERE user_id = ?", [userId, userId]);
+        return results[0];
+    }
 }
 
 module.exports = UsersService;

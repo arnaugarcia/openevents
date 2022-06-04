@@ -65,4 +65,8 @@ router.get('/:id/friends', async (req, res, next) => {
     res.json(await friendsService.findFriendsForUser(req.params.id));
 })
 
+router.get('/:id/statistics', async (req, res, next) => {
+    res.json(await userService.findStatistics(req.params.id));
+});
+
 module.exports = router;
