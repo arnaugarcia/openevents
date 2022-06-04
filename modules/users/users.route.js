@@ -46,23 +46,23 @@ router.get('/:id/events/current', async (req, res, next) => {
 })
 
 router.get('/:id/assistances', async (req, res, next) => {
-    res.json(await eventsService.findEventsWithAssistanceOfUser(req.USER_ID));
+    res.json(await eventsService.findEventsWithAssistanceOfUser(req.params.id));
 })
 
 router.get('/:id/assistances/future', async (req, res, next) => {
-    res.json(await eventsService.findFutureEventsWithAssistanceOfUser(req.USER_ID));
+    res.json(await eventsService.findFutureEventsWithAssistanceOfUser(req.params.id));
 })
 
 router.get('/:id/assistances/finished', async (req, res, next) => {
-    res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.USER_ID));
+    res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.params.id));
 })
 
 router.get('/:id/assistances/finished', async (req, res, next) => {
-    res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.USER_ID));
+    res.json(await eventsService.findFinishedEventsWithAssistanceOfUser(req.params.id));
 })
 
 router.get('/:id/friends', async (req, res, next) => {
-    res.json(await friendsService.findFriendsForUser(req.USER_ID));
+    res.json(await friendsService.findFriendsForUser(req.params.id));
 })
 
 module.exports = router;
