@@ -14,4 +14,12 @@ router.get('/requests', async (req, res, next) => {
     res.json(await friendsService.findFriendRequestsForUser(req.USER_ID));
 })
 
+router.post('/:id', async (req, res, next) => {
+    res.json(await friendsService.saveFriendRequestForUserAndFriend(req.USER_ID, req.params.id));
+})
+
+router.put('/:id', async (req, res, next) => {
+    res.json(await friendsService.acceptFriendRequestForUserAndFriend(req.USER_ID, req.params.id));
+})
+
 module.exports = router;
