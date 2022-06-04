@@ -24,6 +24,11 @@ class FriendsService extends GenericCrudService {
         const [results] = await global.connection.promise().query("UPDATE friends SET status = 1 WHERE user_id = ? AND user_id_friend = ?", [userId, friendId]);
         return results;
     }
+
+    async rejectFriendRequestForUserAndFriend(userId, friendId) {
+        const [results] = await global.connection.promise().query("DELETE FROM friends WHERE user_id = ? AND user_id_friend = ?", [userId, friendId]);
+        return results;
+    }
 }
 
 
