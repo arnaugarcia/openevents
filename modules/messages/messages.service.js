@@ -5,7 +5,7 @@ class MessagesService extends GenericCrudService {
         super("message")
     }
 
-    async saveMessageForUser(userId, message) {
+    async saveMessageForUser(message) {
         message.timestamp = new Date();
         return this.save(message);
     }
