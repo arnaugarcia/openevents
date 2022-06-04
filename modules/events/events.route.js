@@ -50,6 +50,10 @@ router.put('/:id/assistances', async (req, res, next) => {
     res.json(await assistanceService.updateAsistanceForUser(req.params.id, req.USER_ID, req.body));
 })
 
+router.delete('/:id/assistances', async (req, res, next) => {
+    res.status(HttpStatus.NO_CONTENT).json(await assistanceService.removeAssistanceForUserAndEvent(req.params.id, req.USER_ID));
+})
+
 router.delete('/:id', async (req, res, next) => {
     await eventsService.remove(req.params.id)
     res.status(HttpStatus.NO_CONTENT).json({Mensaje: `${req.params.id} has been deleted`});

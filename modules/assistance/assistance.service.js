@@ -36,6 +36,11 @@ class AssistanceService extends GenericCrudService {
             [assistance.comentary, assistance.puntuation, eventId, userId]);
         return results[0];
     }
+
+    async removeAssistanceForUserAndEvent(eventId, userId) {
+        const [results] = await global.connection.promise().query("DELETE FROM assistance WHERE event_id = ? AND user_id = ?", [eventId, userId]);
+        return results[0];
+    }
 }
 
 
