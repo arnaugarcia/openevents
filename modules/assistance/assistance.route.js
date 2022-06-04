@@ -10,4 +10,8 @@ router.get('/:userId/:eventId', async (req, res, next) => {
     res.json(await assistanceService.findAssistancesForEventAndUser(req.params.eventId, req.params.userId));
 })
 
+router.post('/:userId/:eventId', async (req, res, next) => {
+    res.status(HttpStatus.CREATED).json(await assistanceService.saveAssistanceForUserAndEvent(req.params.userId, req.params.eventId, req.body));
+})
+
 module.exports = router;

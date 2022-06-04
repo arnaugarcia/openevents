@@ -41,6 +41,12 @@ class AssistanceService extends GenericCrudService {
         const [results] = await global.connection.promise().query("DELETE FROM assistance WHERE event_id = ? AND user_id = ?", [eventId, userId]);
         return results[0];
     }
+
+    async saveAssistanceForUserAndEvent(userId, eventId, assistance) {
+        assistance.user_id = userId;
+        assistance.event_id = eventId;
+        return this.save(assistance);
+    }
 }
 
 
