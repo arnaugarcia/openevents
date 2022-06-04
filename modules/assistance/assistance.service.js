@@ -14,6 +14,11 @@ class AssistanceService extends GenericCrudService {
         const results = await global.connection.promise().query("SELECT * FROM assistance WHERE user_id = ?", id);
         return results[0][0];
     }
+
+    async findAssistancesForEvent(id) {
+        const results = await global.connection.promise().query("SELECT * FROM assistance WHERE event_id = ?", id);
+        return results[0];
+    }
 }
 
 

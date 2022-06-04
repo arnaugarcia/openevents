@@ -33,6 +33,10 @@ router.post('/:id/assistances', async (req, res, next) => {
     res.status(HttpStatus.CREATED).json(await assistanceService.saveAssistanceForUser(req.params.id, req.USER_ID));
 })
 
+router.get('/:id/assistances', async (req, res, next) => {
+    res.json(await assistanceService.findAssistancesForEvent(req.params.id));
+})
+
 router.delete('/:id', async (req, res, next) => {
     await eventsService.remove(req.params.id)
     res.status(HttpStatus.NO_CONTENT).json({Mensaje: `${req.params.id} has been deleted`});
